@@ -18,3 +18,21 @@ def adicionar_usuario(nome, idade):
     cursor.execute('''INSERT INTO usuarios (nome, idade) VALUES (?, ?)''', (nome, idade))
     conexao.commit()
     conexao.close()
+
+# Função para listar todos os usuários
+def listar_usuarios():
+    conexao = sqlite3.connect('exemplo.db')
+    cursor = conexao.cursor()
+    cursor.execute('''SELECT * FROM usuarios''')
+    usuarios = cursor.fetchall()
+    for usuario in usuarios:
+        print(usuario)
+    conexao.close()
+
+# Função para atualizar os dados de um usuário
+def atualizar_usuario(id, nome, idade):
+    conexao = sqlite3.connect('exemplo.db')
+    cursor = conexao.cursor()
+    cursor.execute('''UPDATE usuarios SET nome = ?, idade = ? WHERE id = ?''', (nome, idade, id))
+    conexao.commit()
+    conexao.close()
